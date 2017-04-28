@@ -1,0 +1,82 @@
+<br>
+<div *ngIf="chartType == 'pie'">
+    <form (ngSubmit)="setReady()" #graphsForm="ngForm" class="col-md-3">
+        <div class="form-group">
+            <label for="currentboard">Sprints Board</label>
+            <select class="form-control" id="currentboard" [(ngModel)]="currentBoardName" name="boardName" required>
+                <option *ngFor="let board of boards" [value]="board.name">{{board.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="completedboard">Completed Board</label>
+            <select class="form-control" id="completedboard" [(ngModel)]="completedBoardName" name="completedboardName" required>
+                <option *ngFor="let board of boards" [value]="board.name">{{board.name}}</option>
+            </select>
+        </div>
+
+        <button id="submitButton" type="submit" class="btn btn-success btn-sm">Set</button>
+    </form>
+
+    <form *ngIf="graphsReady" (ngSubmit)="changeSprint()" #sprintForm="ngForm" class="col-md-1 right">
+        <div class="form-group">
+            <label for="sprintNum">Sprint</label>
+            <select class="form-control" id="sprintNum" [(ngModel)]="sprint" name="sprintnum">
+                <option *ngFor="let sprint of numSprints" [value]="sprint">{{sprint}}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Change</button>
+    </form>
+
+    <br><br><br><br><br><br><br><br><br><br>
+
+    <div *ngIf="graphsReady">
+    <div class="wrapper"><label for="pieChart"><h3>Assigned Story Points</h3></label></div>
+
+    <div class="col-md-12" id="pieChart" style="display: block">
+        <canvas width="400" height="400" baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [chartType]="pieChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+        </canvas>
+    </div>
+    </div>
+</div>
+
+<div *ngIf="chartType == 'bar'">
+    <form (ngSubmit)="setCompletedBoard()" #graphsForm="ngForm" class="col-md-3">
+        <div class="form-group">
+            <label for="completedboard">Completed Board</label>
+            <select class="form-control" id="completedboard" [(ngModel)]="completedBoardName" name="completedboardName" required>
+                <option *ngFor="let board of boards" [value]="board.name">{{board.name}}</option>
+            </select>
+        </div>
+
+        <button id="submitButton" type="submit" class="btn btn-success btn-sm">Set</button>
+    </form>
+
+    <br><br><br><br><br><br><br><br>
+    <div *ngIf="graphsReady">
+    <div class="col-md-12" style="display: block">
+        <canvas width="400" height="400" baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+        </canvas>
+    </div>
+    </div>
+</div>
+
+<br><br><br><br>
+
+<div class="wrapper">
+    <button class="btn btn-primary" (click)="changeChartType('pie')">Pie Chart</button>
+    <button class="btn btn-primary" (click)="changeChartType('bar')">Bar Graph</button>
+</div>

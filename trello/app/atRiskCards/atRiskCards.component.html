@@ -1,0 +1,12 @@
+<br>
+
+<form (ngSubmit)="setReady()" #bugsForm="ngForm" class="col-md-3">
+    <div class="form-group">
+        <label for="currentboard">Board</label>
+        <select class="form-control" id="currentboard" [(ngModel)]="currentBoardName" name="boardName" required>
+            <option *ngFor="let board of boards" [value]="board.name">{{board.name}}</option>
+        </select>
+    </div>
+
+    <button id="submitButton" type="submit" class="btn btn-success btn-sm">Set</button>
+</form>

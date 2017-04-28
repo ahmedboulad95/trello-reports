@@ -1,0 +1,37 @@
+<h1>Team Page</h1>
+<div class="col-md-3">
+<select (change)="clicked($event.target.value)" class="form-control" >
+    <option>Select Team Member</option>
+    <option *ngFor="let member of members" [value]="member.username">{{member.fullName}}</option>
+</select >
+</div>
+
+<br><br>
+
+<div *ngIf="isShow">
+    <table>
+        <tr>
+            <th><h3>{{fName}}</h3></th>
+        </tr>
+        <tr>
+            <th><h4>Boards</h4></th>
+        </tr>
+        <tr *ngFor="let data of boardData">
+            <td>{{data.name}}</td>
+        </tr>
+        <tr><th><h4>Assigned Cards</h4></th>
+        </tr>
+
+        <tr *ngFor="let data of cardData">
+            <td>{{data.name}}</td>
+        </tr>
+        <tr><th><h4>Total Assigned Story Points</h4></th>
+        </tr>
+
+        <tr><td>{{userSP}}</td></tr>
+
+        <tr><th><h4>Completed Story Points</h4></th></tr>
+        <tr><td>{{comSP}}</td></tr>
+
+    </table>
+</div>

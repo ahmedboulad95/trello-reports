@@ -1,0 +1,36 @@
+<br>
+
+<form (ngSubmit)="setReady()" #bugsForm="ngForm" class="col-md-3">
+    <div class="form-group">
+        <label for="currentboard">Bugs Board</label>
+        <select class="form-control" id="currentboard" [(ngModel)]="bugsBoardName" name="boardName" required>
+            <option *ngFor="let board of boards" [value]="board.name">{{board.name}}</option>
+        </select>
+    </div>
+
+    <button id="submitButton" type="submit" class="btn btn-success btn-sm">Set</button>
+</form>
+
+<br><br><br><br><br><br><br><br>
+
+<div *ngIf="tableReady" class="container">
+    <h2>Bugs Report</h2>
+    <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Bug Title</th>
+                <th>Detected On</th>
+                <th>Detected By</th>
+                <th>Current Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let card of bugCards">
+                <td>{{card.title}}</td>
+                <td>{{card.date}}</td>
+                <td>{{card.detector}}</td>
+                <td>{{card.listTitle}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
